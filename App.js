@@ -12,6 +12,11 @@ import {
 import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
 import {createStore } from 'redux';
 
+import Amplify from 'aws-amplify';
+import aws_exports from './aws-exports';
+
+Amplify.configure(aws_exports);
+
 class HomeScreen extends Component {
   render() {
     return (
