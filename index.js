@@ -12,15 +12,15 @@ import { reducer, initialState } from './storeCommands';
 const store = createStore(reducer, initialState)
 
 // Import the App container component
-import {App} from './App'
+import App from './App'
 
 //Provider
-const AppWithStore = (
+render(
     <Provider store={store}>
         <App />
-    </Provider>
+    </Provider>, document.getElementsByName('App')
 )
 
 // Pass the store into the app container
-ReactDOM.render(AppWithStore, document.getQuerySelector('#app'))
+
 

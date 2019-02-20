@@ -6,7 +6,8 @@ import {
   Alert,
   TouchableOpacity
 } from "react-native";
-import { createAppContainer, createStackNavigator, StackActions, NavigationActions } from 'react-navigation'; // Version can be specified in package.json
+import { StackNavigator, createAppContainer, createStackNavigator, createBottomTabNavigator, StackActions} from 'react-navigation'; // Version can be specified in package.json
+///import {styles} from './StyleSheet';
 
 import Amplify from 'aws-amplify';
 import aws_exports from './aws-exports';
@@ -21,10 +22,25 @@ import MyHuntsScreen from './MyHuntsScreen';
 import MyStatsScreen from './MyStatsScreen';
 import NewLocationScreen from './NewLocationScreen';
 import SettingsScreen from './SettingsScreen';
+import SavedLocation from './SavedLocation';
+import NavigationService from './NavigationService';
+import {Google} from 'expo';
+import * as firebase from 'firebase';
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCxLDLimqSoYI8pYC08vfSFLMGFumC3MVk",
+  authDomain: "cluest-8da73.firebaseapp.com",
+  databaseURL: "https://cluest-8da73.firebaseio.com",
+  storageBucket: "cluest-8da73.appspot.com",
+}
+
+firebase.initializeApp(firebaseConfig);
+//import LogIn from './LogIn';
 
 //import {store} from './index.js'
 
-Amplify.configure(aws_exports);
+//Amplify.configure(aws_exports);
 
 const mapStateToProps = (state) => ({
   username: state.username,
@@ -32,48 +48,13 @@ const mapStateToProps = (state) => ({
   longitude: state.longitude
 })
 
-const styles = StyleSheet.create({
-  fourRows: {
-    flex: 0.25, 
-    flexDirection: 'row',
-    alignItems: 'center', 
-    justifyContent: 'space-around'
-  },
-  squareish: {
-    padding: 15,
-    textAlign: 'center',
-    borderRadius: 35,
-    width: '32%',
-    backgroundColor: 'white',
-    height: '64%',
-  },
-  welcome: {
-    fontSize: 35,
-    textAlign: "justify",
-    margin: 10,
-    fontWeight: '600',
-    textShadowOffset: {width: 50, height: 50},
-    textShadowColor: 'black',
-    letterSpacing: 25,
-    textAlignVertical: 'bottom'
-  },
-  squareText: {
-    textAlign: 'center',
-    flex: 1,
-    textAlignVertical: 'center',
-    fontWeight: '500',
-    color: 'black',
-    fontSize: 16
-  },
-  bottomBar: {
-    backgroundColor: 'tan'
-  },
-  bottomButton: {
-    width: '33%',
-    height: '100%',
-  }
+/*const clientId = 'cluest-8da73';
+const { type, accessToken, user } = Google.logInAsync({ clientId });
 
-});
+if (type === 'success') {
+  /* `accessToken` is now valid and can be used to get data from the Google API with HTTP requests */
+  /*console.log(user);
+}*/
 
 const RootStack = createStackNavigator(
   {
@@ -85,6 +66,7 @@ const RootStack = createStackNavigator(
     NewLocation: NewLocationScreen,
     Settings: SettingsScreen,
     Stats: MyStatsScreen,
+    SavedLocation: SavedLocation,
   },
   {
     initialRouteName: 'Home',
@@ -92,13 +74,23 @@ const RootStack = createStackNavigator(
   }
 );
 
+
 const AppContainer = createAppContainer(RootStack);
 
 class App extends Component {
   
   render()
   {
-    return<AppContainer screenProps={this.props}/>;
+    /*<View style={styles.container}>
+        <LogIn />
+      </View>*/
+    return(
+      <AppContainer 
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
+    );
     /*const {info} = this.props
     return (
       <Text>{info}</Text>
@@ -106,7 +98,6 @@ class App extends Component {
   }
 }
 
-//const itGoes = connect()(App)
-itGoes = App;
 
-export default itGoes
+//export default connect()(App);
+export default App;
