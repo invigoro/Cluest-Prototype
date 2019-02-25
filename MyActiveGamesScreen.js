@@ -16,7 +16,7 @@ export default class MyActiveGamesScreen extends Component {
           <View>
               <Text>Active Games Screen</Text>
           </View>
-      )
+      );
   }
 }
 

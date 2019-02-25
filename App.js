@@ -24,18 +24,13 @@ import NewLocationScreen from './NewLocationScreen';
 import SettingsScreen from './SettingsScreen';
 import SavedLocation from './SavedLocation';
 import NavigationService from './NavigationService';
+import LogIn from './LogIn';
+import LoadingScreen from './LoadingScreen'
 import {Google} from 'expo';
 import * as firebase from 'firebase';
 
+//const provider = firebase.auth.GoogleAuthProvider();
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCxLDLimqSoYI8pYC08vfSFLMGFumC3MVk",
-  authDomain: "cluest-8da73.firebaseapp.com",
-  databaseURL: "https://cluest-8da73.firebaseio.com",
-  storageBucket: "cluest-8da73.appspot.com",
-}
-
-firebase.initializeApp(firebaseConfig);
 //import LogIn from './LogIn';
 
 //import {store} from './index.js'
@@ -56,6 +51,7 @@ if (type === 'success') {
   /*console.log(user);
 }*/
 
+
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -67,9 +63,11 @@ const RootStack = createStackNavigator(
     Settings: SettingsScreen,
     Stats: MyStatsScreen,
     SavedLocation: SavedLocation,
+    Login: LogIn,
+    Loading: LoadingScreen,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Loading',
     //headerMode: 'Screen'
   }
 );
