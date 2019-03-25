@@ -7,6 +7,10 @@ import {
     TouchableOpacity,
     TextInput,
   } from "react-native";
+
+  import firebase from './fbase';
+  var database = firebase.database();
+
 export default class NewLocationScreen extends Component {
   state = {
     latitude: "x",
@@ -44,6 +48,10 @@ export default class NewLocationScreen extends Component {
 
   componentWillMount(){
     this.findCoordinates();
+  }
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {this.setState({user})
+    });
   }
   render ()
   {
