@@ -25,7 +25,9 @@ import SettingsScreen from './SettingsScreen';
 import SavedLocation from './SavedLocation';
 import NavigationService from './NavigationService';
 import LogIn from './LogIn';
-import LoadingScreen from './LoadingScreen'
+import LoadingScreen from './LoadingScreen';
+import CreateHunt1 from './CreateHunt1';
+import CreateHunt2 from './CreateHunt2';
 import {Google} from 'expo';
 import * as firebase from 'firebase';
 
@@ -36,7 +38,7 @@ import * as firebase from 'firebase';
 //import {store} from './index.js'
 
 //Amplify.configure(aws_exports);
-
+console.ignoredYellowBox = ['Setting a timer'];
 const mapStateToProps = (state) => ({
   username: state.username,
   latitude: state.latitude,
@@ -65,6 +67,8 @@ const RootStack = createStackNavigator(
     SavedLocation: SavedLocation,
     Login: LogIn,
     Loading: LoadingScreen,
+    CreateHunt1: CreateHunt1,
+    CreateHunt2: CreateHunt2,
   },
   {
     initialRouteName: 'Loading',

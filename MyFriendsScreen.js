@@ -29,13 +29,21 @@ componentDidMount() {
   firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getFriendList(user)});
 }
 getFriendList(user) {
-  database.ref('friends/' + user.uid).once('value', (snapshot) => {
+  database.ref('friends/' + user.uid).on('value', (snapshot) => {
     //console.log(user);
     //console.log(user.uid);
       var friendos = snapshot.val();
       //console.log(friendos);
-      var friends = Object.values(friendos);
-      this.setState({friends});
+      try {
+        
+        var friends = Object.values(friendos);
+        this.setState({friends});
+      
+        
+      }
+      catch {
+        
+      }
       //console.log(this.state);
   });
 }

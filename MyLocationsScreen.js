@@ -53,7 +53,7 @@ constructor(props) {
     state = {
       user: firebase.User
   }
-  componentDidMount() {
+  componentWillMount() {
     firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getLocations(user)});
   }
   getLocations(user) {
@@ -101,7 +101,7 @@ render ()
                 <FlatList
                     data={this.state.locations}
                     renderItem={this.renderRow}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.name}
                 />
             </List>
         </View>

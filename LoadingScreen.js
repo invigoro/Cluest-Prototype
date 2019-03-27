@@ -11,7 +11,7 @@ import {
     TouchableOpacity,
     Button
   } from "react-native";
-
+  console.ignoredYellowBox = ['Setting a timer'];
   export default class LoadingScreen extends Component {
     componentWillMount()
     {
