@@ -9,10 +9,20 @@ import {AppRegistry, FlatList,
   import {List, ListItem} from 'react-native-elements';
   import { withNavigation } from 'react-navigation';
   import NavigationService from './NavigationService';
+  import firebase from './fbase';
+
+var database = firebase.database();
+
+function getKey(item) {
+    console.log(item);
+    var myItem = Object.keys(item);
+    console.log(myItem);
+    return myItem[0];
+}
   
 class MyLocationsScreen extends Component {
   
-  state = {
+  /*state = {
     //THESE ARE ALL SAMPLE COORDINATES
     games: [
         {
@@ -34,20 +44,51 @@ class MyLocationsScreen extends Component {
             longitude: '-98.870',
         }
     ]
-}
+}*/
+constructor(props) {
+    super(props);
+    this.getLocations = this.getLocations.bind(this);
+  }
+  
+    state = {
+      user: firebase.User
+  }
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getLocations(user)});
+  }
+  getLocations(user) {
+    database.ref('locations/' + user.uid).on('value', (snapshot) => {
+      //console.log(user);
+      //console.log(user.uid);
+        var loc = snapshot.val();
+        //console.log(friendos);
+        lockeys = Object.keys(loc);
+        //console.log(loc);
+        for(var i = 0; i < lockeys.length; i++) {
+            var key = lockeys[i];
+            loc[key].id = key;
+            //console.log(loc[key].id)
+        }
+        locations = Object.values(loc);
+        this.setState({locations});
+
+        //console.log(this.state);
+    });
+  }
 renderRow ( {item} ) {
     return (
         <ListItem
         title={item.name}
         subtitle={item.latitude + ", " + item.longitude}
-        onPress={() => NavigationService.navigate('SavedLocation', { id: id, name: item.name, latitude: item.latitude, longitude: item.longitude })}
+        onPress={() => NavigationService.navigate('SavedLocation', { id: item.id, name: item.name, descript: item.descript, latitude: item.latitude, longitude: item.longitude })}
         />
     )
 }
 render ()
 {
     const {navigate} = this.props.navigation;
-    console.log(navigate)
+    //console.log(navigate)
+    //console.log(this.state.locations)
     return (
         /*<View>
             <Text>Active Games Page</Text>
@@ -58,9 +99,9 @@ render ()
             </Text>
             <List>
                 <FlatList
-                    data={this.state.games}
+                    data={this.state.locations}
                     renderItem={this.renderRow}
-                    keyExtractor={item => item.name}
+                    keyExtractor={item => item.id}
                 />
             </List>
         </View>

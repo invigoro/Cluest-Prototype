@@ -9,7 +9,18 @@ import {
   } from "react-native";
 
   import firebase from './fbase';
+  import NavigationService from './NavigationService';
   var database = firebase.database();
+
+  function handleSubmit(info) {
+    database.ref('locations/' + info.user.uid).push({
+      descript: info.descript,
+      latitude: info.latitude,
+      longitude: info.longitude,
+      name: info.title
+    });
+    NavigationService.navigateTo('Locations');
+  }
 
 export default class NewLocationScreen extends Component {
   state = {
@@ -18,7 +29,7 @@ export default class NewLocationScreen extends Component {
     title: "",
     descript: "",
     img: "",
-
+    user: firebase.User,
   };
 
   getLocation = () => {
@@ -30,7 +41,7 @@ export default class NewLocationScreen extends Component {
     {
       return (this.state.latitude) + ", " + (this.state.longitude);
     }
-  }
+  };
 
   findCoordinates = () => {
     navigator.geolocation.getCurrentPosition( //location is the result of this call as a JSON array
@@ -50,9 +61,10 @@ export default class NewLocationScreen extends Component {
     this.findCoordinates();
   }
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {this.setState({user})
-    });
+    firebase.auth().onAuthStateChanged(user => {this.setState({user})});
   }
+
+  
   render ()
   {
 
@@ -69,6 +81,7 @@ export default class NewLocationScreen extends Component {
               numberOfLines = {4}
               style={styles.descript} onChangeText={(descript) => this.setState({descript})}
               placeholder = "Write a clue to help your friends find this place!"/>
+              <TouchableOpacity><Text onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
           </View>
       )
   }
