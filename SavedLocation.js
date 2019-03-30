@@ -18,7 +18,7 @@ function handleSubmit(info) {
       longitude: info.longitude,
       name: info.title
     });
-    NavigationService.navigateTo('Locations');
+    NavigationService.goBack();
   }
 export default class SavedLocation extends Component{
     state = {

@@ -12,15 +12,12 @@ import {AppRegistry, FlatList,
   import firebase from './fbase';
 
 var database = firebase.database();
-
-function getKey(item) {
-    console.log(item);
-    var myItem = Object.keys(item);
-    console.log(myItem);
-    return myItem[0];
-}
   
 class MyLocationsScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.getLocations = this.getLocations.bind(this);
+      }
   
   /*state = {
     //THESE ARE ALL SAMPLE COORDINATES
@@ -45,19 +42,16 @@ class MyLocationsScreen extends Component {
         }
     ]
 }*/
-constructor(props) {
-    super(props);
-    this.getLocations = this.getLocations.bind(this);
-  }
   
     state = {
       user: firebase.User
   }
-  componentWillMount() {
+  componentDidMount() {
     firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getLocations(user)});
   }
   getLocations(user) {
-    database.ref('locations/' + user.uid).on('value', (snapshot) => {
+    database.ref('locations/' + user.uid).once('value', (snapshot) => {
+       
       //console.log(user);
       //console.log(user.uid);
         var loc = snapshot.val();

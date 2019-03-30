@@ -14,6 +14,14 @@ export default class CreateHunt2 extends Component {
     componentWillUnmount() {
       
     }
+    componentDidMount() {
+        const {navigation } = this.props;
+        const locations = navigation.getParam('locations', 'no locations');
+        firebase.auth().onAuthStateChanged(user => {this.setState({user}); 
+        this.setState({locations});
+        console.log(locations);
+        });
+      }
     render ()
     {
         return (

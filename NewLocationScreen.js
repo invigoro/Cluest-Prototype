@@ -19,7 +19,8 @@ import {
       longitude: info.longitude,
       name: info.title
     });
-    NavigationService.navigateTo('Locations');
+    Alert.alert('Location Saved', 'Access this locatin in the "Locations" section.');
+    NavigationService.goBack();
   }
 
 export default class NewLocationScreen extends Component {
