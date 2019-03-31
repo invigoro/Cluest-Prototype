@@ -19,7 +19,7 @@ import {
       longitude: info.longitude,
       name: info.title
     });
-    Alert.alert('Location Saved', 'Access this locatin in the "Locations" section.');
+    Alert.alert('Location Saved', 'Access this location in the "Locations" section.');
     NavigationService.goBack();
   }
 

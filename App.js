@@ -28,6 +28,7 @@ import LogIn from './LogIn';
 import LoadingScreen from './LoadingScreen';
 import CreateHunt1 from './CreateHunt1';
 import CreateHunt2 from './CreateHunt2';
+import CreateHunt3 from './CreateHunt3';
 import {Google} from 'expo';
 import * as firebase from 'firebase';
 
@@ -69,6 +70,7 @@ const RootStack = createStackNavigator(
     Loading: LoadingScreen,
     CreateHunt1: CreateHunt1,
     CreateHunt2: CreateHunt2,
+    CreateHunt3: CreateHunt3,
   },
   {
     initialRouteName: 'Loading',

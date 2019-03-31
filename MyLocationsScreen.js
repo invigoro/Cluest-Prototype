@@ -50,6 +50,7 @@ class MyLocationsScreen extends Component {
     firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getLocations(user)});
   }
   getLocations(user) {
+      try{
     database.ref('locations/' + user.uid).once('value', (snapshot) => {
        
       //console.log(user);
@@ -68,6 +69,7 @@ class MyLocationsScreen extends Component {
 
         //console.log(this.state);
     });
+}catch{}
   }
 renderRow ( {item} ) {
     return (
