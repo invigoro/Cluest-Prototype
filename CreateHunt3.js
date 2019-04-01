@@ -18,7 +18,8 @@ var database = firebase.database();
         author: state.user.displayName,
         authorid: state.user.uid,
         title: state.title,
-        descript: state.descript
+        descript: state.descript,
+        end: state.data.length - 1
     });
 
     var postID = newPostRef.key;

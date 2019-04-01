@@ -14,9 +14,15 @@ import {AppRegistry, FlatList,
 var database = firebase.database();
 
 function handleSubmit(loc){
+    if(loc.length < 2)
+    {
+      Alert.alert("Error", "Please select at least two locations.");
+    }
+    else{
     //const loc = this.state.locations.filter(item => item.isSelect);
     //console.log(loc);
     NavigationService.navigate('CreateHunt2', {locations: loc});
+  }
   }
 
 export default class CreateHunt1 extends Component {

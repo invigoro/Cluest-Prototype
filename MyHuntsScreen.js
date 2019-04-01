@@ -48,12 +48,12 @@ getHunts(user) {
 
       //console.log(this.state);
   });
-}catch{}
+}catch{return;}
 }
 renderRow ( {item} ) {
   return (
       <ListItem
-      title={item.name}
+      title={item.title}
       subtitle={item.descript}
       //onPress={() => NavigationService.navigate('SavedLocation', { id: item.id, name: item.name, descript: item.descript, latitude: item.latitude, longitude: item.longitude })}
       />

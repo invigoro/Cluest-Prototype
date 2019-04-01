@@ -8,12 +8,16 @@ import {
     TouchableOpacity
   } from "react-native";
   import {List, ListItem} from 'react-native-elements';
+  import NavigationService from './NavigationService';
  
 
 import firebase from './fbase';
 
 var database = firebase.database();
 
+function handleSubmit(item) {
+  //NavigationService.navigate('SendHunt1', {friend: item});
+}
 
 
 export default class MyFriendsScreen extends Component {
@@ -50,9 +54,11 @@ getFriendList(user) {
 renderRow ( {item} ) {
   return (
       <ListItem
+      roundAvatar
       title={item.name}
       id={item.token}
       avatar={{uri: item.pic}}
+      onPress={() => handleSubmit(item)}
       />
   )
 }
