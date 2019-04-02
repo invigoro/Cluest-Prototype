@@ -31,7 +31,7 @@ componentDidMount() {
 getHunts(user) {
   try{
   database.ref('hunts/' + user.uid).once('value', (snapshot) => {
-     
+     if(snapshot.exists()) {
     //console.log(user);
     //console.log(user.uid);
       var h = snapshot.val();
@@ -45,7 +45,7 @@ getHunts(user) {
       }
       hunts = Object.values(h);
       this.setState({hunts});
-
+    }
       //console.log(this.state);
   });
 }catch{return;}

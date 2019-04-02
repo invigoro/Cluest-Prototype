@@ -12,8 +12,9 @@ import {AppRegistry, FlatList,
   import firebase from './fbase';
 
 var database = firebase.database();
-function handleSubmit() {
-  NavigationService.navigateTo('CreateHunt1');
+
+function handleSubmit(hunts) {
+  NavigationService.navigate('TreasureHuntMode', {data: hunts});
 }
 
 export default class MyActiveGames extends Component {
@@ -23,7 +24,8 @@ export default class MyActiveGames extends Component {
     this.getHunts = this.getHunts.bind(this);
   }
   state = {
-    user: firebase.User
+    user: firebase.User,
+    hunts: null
 }
 componentDidMount() {
   firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getHunts(user)});
@@ -80,7 +82,7 @@ renderRow ( {item} ) {
             />
         </List>
         <TouchableOpacity style={[styles.header]}>
-          <Text onPress={() => handleSubmit()}>
+          <Text onPress={() => handleSubmit(this.state.hunts.filter(item => item.progress != item.end && item.progress >= 0))}>
             Enter TREASURE HUNT Mode >
           </Text>
         </TouchableOpacity>
