@@ -71,6 +71,12 @@ function handleSubmit(hunts, user, friend){
       //console.log(hunts[j]["id"]);
       database.ref('received/' + friend.token + '/' + hunts.id).once("value", snapshot => {
         if (!snapshot.exists()){
+          var date = new Date().getDate(); //Current Date
+          var month = new Date().getMonth() + 1; //Current Month
+          var year = new Date().getFullYear(); //Current Year
+          var hours = new Date().getHours(); //Current Hours
+          var min = new Date().getMinutes(); //Current Minutes
+          var sec = new Date().getSeconds(); //Current Seconds
       /*if(hunts.length == 1){
       j--;}*/
 
@@ -81,7 +87,9 @@ function handleSubmit(hunts, user, friend){
         descript: hunts.descript,
         photo: user.photoURL,
         progress: -1,
-        end: hunts.end
+        end: hunts.end,
+        date:
+        date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec, 
     });
 
     var i = 0;

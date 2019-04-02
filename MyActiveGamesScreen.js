@@ -14,7 +14,13 @@ import {AppRegistry, FlatList,
 var database = firebase.database();
 
 function handleSubmit(hunts) {
-  NavigationService.navigate('TreasureHuntMode', {data: hunts});
+  if (hunts == null)
+  {
+    Alert.alert("No Hunts Started", "Please select at least one hunt and begin it to enter Treasure Hunt Mode.");
+  }
+  else {
+    NavigationService.navigate('TreasureHuntMode', {data: hunts});
+  }
 }
 
 export default class MyActiveGames extends Component {
@@ -47,6 +53,7 @@ getHunts(user) {
       }
       hunts = Object.values(h);
       this.setState({hunts});
+      //console.log(hunts);
 
       //console.log(this.state);
   });

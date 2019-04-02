@@ -4,7 +4,8 @@ import {AppRegistry, FlatList,
     Text,
     View,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions,
   } from "react-native";
   import {List, ListItem} from 'react-native-elements';
   import { withNavigation } from 'react-navigation';
@@ -28,7 +29,7 @@ export default class TreasureHuntMode extends Component {
         const { navigation } = this.props;
         //console.log(navigation);
         var activeHunts = navigation.getParam('data', 'no data');
-        //console.log(activeHunts);
+        console.log(activeHunts);
         this.setState({activeHunts});
         this.setOpenClues(activeHunts);
         firebase.auth().onAuthStateChanged(user => {this.setState({user}); 
@@ -87,6 +88,24 @@ export default class TreasureHuntMode extends Component {
     _handleUserLocationChange = location => {
         this.setState({mapRegion: { latitude: location.nativeEvent.coordinate.latitude, longitude: location.nativeEvent.coordinate.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }});
     }
+    renderRow ( {item} ) {
+      var progress = item.progress;
+      //console.log(item);
+      //console.log(progress);
+      var loc = item[progress];
+      //console.log(loc);
+      return (
+          <ListItem
+          style={{flex: 1}}
+            title={item.title}
+            roundAvatar
+          title={item.title}
+          subtitle={'"' + loc.descript + '"'}
+          avatar={{ uri: item.photo }}
+          //onPress={() => NavigationService.navigate('SavedLocation', { id: item.id, name: item.name, descript: item.descript, latitude: item.latitude, longitude: item.longitude })}
+          />
+      )
+    }
 
     render () {
         return (
@@ -98,9 +117,18 @@ export default class TreasureHuntMode extends Component {
           this.state.hasLocationPermissions === false ?
             <Text>Location permissions are not granted.</Text> :
             this.state.mapRegion === null ?
-            <Text>Map region doesn't exist.</Text> :
+            <Text>Map region doesn't exist.</Text> : 
+            <View>
+            <FlatList
+              style={{flex: 0.1}}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={this.state.activeHunts}
+              renderItem={this.renderRow}
+
+            />
             <MapView
-              style={{ alignSelf: 'stretch', height: 400 }}
+              style={{alignSelf: 'stretch', height: 400 }}
               region={this.state.mapRegion}
                 //onRegionChange={this._handleMapRegionChange}
               minZoomLevel={17.5}
@@ -116,6 +144,7 @@ export default class TreasureHuntMode extends Component {
               rotateEnabled={true}
 
             />
+            </View>
         }
         
       </View>
