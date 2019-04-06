@@ -13,6 +13,13 @@ import {AppRegistry, FlatList,
   import firebase from './fbase';
   import { Constants, MapView, Location, Permissions } from 'expo';
 
+  function toRadians (angle) {
+    return angle * (Math.PI / 180);
+  }
+  
+
+var database = firebase.database();
+
 export default class TreasureHuntMode extends Component {
     state = {
         activeHunts: null,
@@ -47,6 +54,7 @@ export default class TreasureHuntMode extends Component {
         }
         this.setState({openClues});
     }
+    
 
     _handleMapRegionChange = mapRegion => {
         //console.log(mapRegion);
@@ -85,8 +93,53 @@ export default class TreasureHuntMode extends Component {
         );
       };
     
+    checkLocations = () => {
+      const tol = 20
+      //console.log(this.state);
+      var hunts = this.state.activeHunts;
+      console.log(hunts)
+      for(var i = 0; i < hunts.length; i++)
+      {
+        var prog = hunts[i].progress;
+        var clue = hunts[i][prog];
+        console.log("Clue " + i + " latitude: " + clue.latitude);
+        console.log("Clue " + i + " longitude: " + clue.longitude);
+        lat1 = clue.latitude;
+        lon1 = clue.longitude;
+        lat2 = this.state.mapRegion.latitude;
+        lon2 = this.state.mapRegion.longitude;
+        var R = 6371e3; // metres
+        var φ1 = toRadians(lat1);
+        var φ2 = toRadians(lat2);
+        var Δφ = toRadians(lat2-lat1);
+        var Δλ = toRadians(lon2-lon1);
+
+        var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+        var d = R * c;
+        console.log("Clue " + i + " dist: " + d);
+        if(d < tol) {
+          hunts[i].progress++;
+          prog++;
+          database.ref("received/" + this.state.user.uid + "/" + hunts[i].id + "/progress").set(prog);
+          if(prog >= hunts[i].end) {
+            Alert.alert("Hunt completed!", `You completed ${hunts[i].author}'s hunt '${hunts[i].title}'. Congratulations!`);
+          }
+          else {
+            Alert.alert("You found a clue!", `"${hunts[i][prog].descript}"`);
+          }
+          var activeHunts = hunts
+          this.setState({activeHunts})
+        }
+      }
+    }
+
     _handleUserLocationChange = location => {
         this.setState({mapRegion: { latitude: location.nativeEvent.coordinate.latitude, longitude: location.nativeEvent.coordinate.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }});
+        this.checkLocations();
     }
     renderRow ( {item} ) {
       var progress = item.progress;
@@ -110,6 +163,16 @@ export default class TreasureHuntMode extends Component {
     render () {
         return (
             <View style={styles.container}>
+            <View style={{height: 100}}>
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={this.state.activeHunts}
+              renderItem={this.renderRow}
+
+            ></FlatList>
+            </View>
+            
         
         {
           this.state.locationResult === null ?
@@ -118,15 +181,6 @@ export default class TreasureHuntMode extends Component {
             <Text>Location permissions are not granted.</Text> :
             this.state.mapRegion === null ?
             <Text>Map region doesn't exist.</Text> : 
-            <View>
-            <FlatList
-              style={{flex: 0.1}}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={this.state.activeHunts}
-              renderItem={this.renderRow}
-
-            />
             <MapView
               style={{alignSelf: 'stretch', height: 400 }}
               region={this.state.mapRegion}
@@ -143,8 +197,7 @@ export default class TreasureHuntMode extends Component {
               showsCompass={true}
               rotateEnabled={true}
 
-            />
-            </View>
+            ></MapView>
         }
         
       </View>

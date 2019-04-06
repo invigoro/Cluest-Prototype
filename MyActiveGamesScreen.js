@@ -23,6 +23,33 @@ function handleSubmit(hunts) {
   }
 }
 
+function handleSubmit2(hunts, id, user){
+  console.log('\nBEGIN\nid: \n-----------');
+  console.log(id);
+  console.log('\nhunts:\n----------');
+  console.log(hunts);
+  console.log('\nuser:\n--------------');
+  console.log(user);
+  console.log('\nprogress:\n-----------');
+  console.log(hunts[id].progress);
+  console.log('\nhunt[index]:\n-----------');
+  console.log(hunts[id]);
+  console.log("Title: " + hunts[id].title);
+  if(hunts[id].progress >= 0) {
+    console.log('greater than 0');
+  var filteredHunts = hunts.filter(item => item.progress != item.end && item.progress >= 0);
+    NavigationService.navigate('ReceivedHunt', {hunt: hunts[id]});
+  }
+  else {
+    hunt = hunts[id]
+    database.ref('received/' + user.uid + '/' + hunt.id + '/progress').set(0);
+    Alert.alert('Hunt started', 'This hunt has been started and the first clue is available at the top of the screen.')
+    //handleSubmit(filteredHunts);
+  }
+  
+}
+
+
 export default class MyActiveGames extends Component {
 
   constructor(props) {
@@ -49,6 +76,7 @@ getHunts(user) {
       for(var i = 0; i < huntkeys.length; i++) {
           var key = huntkeys[i];
           h[key].id = key;
+          h[key].index = i;
           //console.log(loc[key].id)
       }
       hunts = Object.values(h);
@@ -59,7 +87,9 @@ getHunts(user) {
   });
 }catch{}
 }
-renderRow ( {item} ) {
+
+
+renderRow = ( {item} ) => {
   var weight = item.progress == -1 ? 'bold' : 'normal';
   var red = item.progress == -1 ? <View style={{width: 5, height: 5, backgroundColor: 'red', borderRadius: 5}}></View> : false;
   return (
@@ -71,10 +101,12 @@ renderRow ( {item} ) {
       subtitleStyle={{fontWeight: weight}}
       avatar={{ uri: item.photo }}
       checkmark={red}
+      onPress={() => handleSubmit2(this.state.hunts, item.index, this.state.user)}
       //onPress={() => NavigationService.navigate('SavedLocation', { id: item.id, name: item.name, descript: item.descript, latitude: item.latitude, longitude: item.longitude })}
       />
   )
 }
+
   render ()
   {
       return (
@@ -85,7 +117,7 @@ renderRow ( {item} ) {
             <FlatList
                 data={this.state.hunts}
                 renderItem={this.renderRow}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.index}
             />
         </List>
         <TouchableOpacity style={[styles.header]}>

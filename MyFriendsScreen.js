@@ -16,7 +16,7 @@ import firebase from './fbase';
 var database = firebase.database();
 
 function handleSubmit(item) {
-  //NavigationService.navigate('SendHunt1', {friend: item});
+  NavigationService.navigate('SendHunt1', {friend: item});
 }
 
 

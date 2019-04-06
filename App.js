@@ -33,6 +33,7 @@ import SendHunt1 from './SendHunt1';
 import TreasureHuntMode from './TreasureHuntMode';
 import {Google} from 'expo';
 import * as firebase from 'firebase';
+import ViewReceivedHunt from "./ViewReceivedHunt";
 
 //const provider = firebase.auth.GoogleAuthProvider();
 
@@ -75,6 +76,7 @@ const RootStack = createStackNavigator(
     CreateHunt3: CreateHunt3,
     SendHunt1: SendHunt1,
     TreasureHuntMode: TreasureHuntMode,
+    ReceivedHunt: ViewReceivedHunt,
   },
   {
     initialRouteName: 'Loading',
