@@ -54,7 +54,7 @@ export default class SavedLocation extends Component{
                 numberOfLines = {4}
                 style={styles.descript} onChangeText={(descript) => this.setState({descript})}
                 placeholder = {descript}/>
-                <TouchableOpacity><Text onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
             </View>
         )
     }
@@ -77,5 +77,15 @@ export default class SavedLocation extends Component{
     descript: {
       fontSize: 20,
       margin: 8
+    },
+    submit: {
+      fontSize: 20,
+      margin: 8,
+      textAlign: 'center'
+    },
+    opacity: {
+      backgroundColor: 'skyblue',
+      borderRadius: 20,
+      padding: 10,
     }
   });

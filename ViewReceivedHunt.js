@@ -2,6 +2,7 @@ import {StyleSheet,
     Text,
     View,
     Alert,
+    Image,
     TouchableOpacity,
     TextInput,} from 'react-native';
 import React, { Component } from "react";
@@ -9,10 +10,6 @@ import firebase from './fbase';
 import NavigationService from './NavigationService';
 var database = firebase.database();
 
-function handleSubmit(hunts) {
-    NavigationService.goBack();
-
-  }
 export default class ViewReceivedHunt extends Component{
     state = {
     user: firebase.User,
@@ -33,8 +30,15 @@ export default class ViewReceivedHunt extends Component{
         const hunt = this.props.navigation.getParam('hunt', 'no hunt');
         return (
             <View>
+              <Image
+        style={{width: 50, height: 50, borderRadius: 25}}
+        source={{uri: hunt.photo}}
+        />
                 <Text style={styles.header}>{hunt.title}</Text>
-                <TouchableOpacity><Text onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
+                <Text style={styles.subtitle}>{hunt.author}</Text>
+                <Text style={styles.descript}>{hunt.descript}</Text>
+                <Text style={styles.descript}>Next Clue: {hunt[hunt.progress].descript}</Text>                
+                <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => NavigationService.navigateTo('TreasureHuntMode')}>Continue Hunt!</Text></TouchableOpacity>
             </View>
         )
     }
@@ -57,5 +61,16 @@ export default class ViewReceivedHunt extends Component{
     descript: {
       fontSize: 20,
       margin: 8
-    }
+    },
+    
+  submit: {
+    fontSize: 20,
+    margin: 8,
+    textAlign: 'center'
+  },
+  opacity: {
+    backgroundColor: 'skyblue',
+    borderRadius: 20,
+    padding: 10,
+  }
   });

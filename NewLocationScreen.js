@@ -82,7 +82,7 @@ export default class NewLocationScreen extends Component {
               numberOfLines = {4}
               style={styles.descript} onChangeText={(descript) => this.setState({descript})}
               placeholder = "Write a clue to help your friends find this place!"/>
-              <TouchableOpacity><Text onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
           </View>
       )
   }
@@ -105,5 +105,15 @@ const styles = StyleSheet.create ({
   descript: {
     fontSize: 20,
     margin: 8
+  },
+  submit: {
+    fontSize: 20,
+    margin: 8,
+    textAlign: 'center'
+  },
+  opacity: {
+    backgroundColor: 'skyblue',
+    borderRadius: 20,
+    padding: 10,
   }
 });

@@ -1,9 +1,11 @@
-#ignore modules
-.expo/
-assets/
-awsmobilejs/
-node_modules/
-
-#and unnecessary files
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p12
+*.key
+*.mobileprovision
+aws-config.js
+aws-exports.js
+babel.config.js
 README.markdown
-README.md

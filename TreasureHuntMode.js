@@ -33,13 +33,13 @@ export default class TreasureHuntMode extends Component {
     }
     componentDidMount() {
         this._getLocationAsync();
-        const { navigation } = this.props;
+        //const { navigation } = this.props;
         //console.log(navigation);
-        var activeHunts = navigation.getParam('data', 'no data');
-        console.log(activeHunts);
-        this.setState({activeHunts});
-        this.setOpenClues(activeHunts);
-        firebase.auth().onAuthStateChanged(user => {this.setState({user}); 
+        //var activeHunts = navigation.getParam('data', 'no data');
+        //console.log(activeHunts);
+        //this.setState({activeHunts});
+        //this.setOpenClues(activeHunts);
+        firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getHunts(user); 
         });
     }
 
@@ -54,6 +54,32 @@ export default class TreasureHuntMode extends Component {
         }
         this.setState({openClues});
     }
+
+    getHunts(user) {
+  try{
+  database.ref('received/' + user.uid).on('value', (snapshot) => {
+     
+    //console.log(user);
+    //console.log(user.uid);
+      var h = snapshot.val();
+      //console.log(friendos);
+      huntkeys = Object.keys(h);
+      //console.log(loc);
+      for(var i = 0; i < huntkeys.length; i++) {
+          var key = huntkeys[i];
+          h[key].id = key;
+          h[key].index = i;
+          //console.log(loc[key].id)
+      }
+      hunts = Object.values(h);
+      var activeHunts = hunts.filter(item => item.progress != item.end && item.progress >= 0);
+      this.setState({activeHunts});
+      //console.log(hunts);
+
+      //console.log(this.state);
+  });
+}catch{}
+}
     
 
     _handleMapRegionChange = mapRegion => {
@@ -126,6 +152,7 @@ export default class TreasureHuntMode extends Component {
           prog++;
           database.ref("received/" + this.state.user.uid + "/" + hunts[i].id + "/progress").set(prog);
           if(prog >= hunts[i].end) {
+            hunts.splice(i, 1);
             Alert.alert("Hunt completed!", `You completed ${hunts[i].author}'s hunt '${hunts[i].title}'. Congratulations!`);
           }
           else {
