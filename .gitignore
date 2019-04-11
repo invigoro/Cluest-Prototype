@@ -1,0 +1,9 @@
+#ignore modules
+.expo/
+assets/
+awsmobilejs/
+node_modules/
+
+#and unnecessary files
+README.markdown
+README.md
