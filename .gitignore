@@ -9,3 +9,6 @@ aws-config.js
 aws-exports.js
 babel.config.js
 README.markdown
+app.json
+keys.js
+fbase.js
