@@ -51,7 +51,7 @@ class MyLocationsScreen extends Component {
   }
   getLocations(user) {
       try{
-    database.ref('locations/' + user.uid).once('value', (snapshot) => {
+    database.ref('locations/' + user.uid).on('value', (snapshot) => {
        
       //console.log(user);
       //console.log(user.uid);
