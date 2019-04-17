@@ -151,7 +151,7 @@ export default class TreasureHuntMode extends Component {
           hunts[i].progress++;
           prog++;
           database.ref("received/" + this.state.user.uid + "/" + hunts[i].id + "/progress").set(prog);
-          if(prog >= hunts[i].end) {
+          if(prog > hunts[i].end) {
             hunts.splice(i, 1);
             Alert.alert("Hunt completed!", `You completed ${hunts[i].author}'s hunt '${hunts[i].title}'. Congratulations!`);
           }
@@ -182,6 +182,7 @@ export default class TreasureHuntMode extends Component {
           title={item.title}
           subtitle={'"' + loc.descript + '"'}
           avatar={{ uri: item.photo }}
+          hideChevron={true}
           //onPress={() => NavigationService.navigate('SavedLocation', { id: item.id, name: item.name, descript: item.descript, latitude: item.latitude, longitude: item.longitude })}
           />
       )
