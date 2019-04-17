@@ -12,6 +12,7 @@ import {
  
 
 import firebase from './fbase';
+import styles from './styles'
 
 var database = firebase.database();
 

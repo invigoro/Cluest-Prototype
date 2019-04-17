@@ -7,6 +7,7 @@ import {AppRegistry, FlatList,
     TouchableOpacity
   } from "react-native";
   import {List, ListItem} from 'react-native-elements';
+  import styles from './styles';
   import { withNavigation } from 'react-navigation';
   import NavigationService from './NavigationService';
   import firebase from './fbase';
@@ -121,8 +122,8 @@ renderRow = ( {item} ) => {
                 keyExtractor={item => item.index}
             />
         </List>
-        <TouchableOpacity style={[styles.header]}>
-          <Text onPress={() => handleSubmit(this.state.hunts.filter(item => item.progress != item.end && item.progress >= 0))}>
+        <TouchableOpacity style={[styles.opacity]}>
+          <Text style={styles.submit} onPress={() => handleSubmit(this.state.hunts.filter(item => item.progress != item.end && item.progress >= 0))}>
             Enter TREASURE HUNT Mode >
           </Text>
         </TouchableOpacity>
@@ -130,25 +131,3 @@ renderRow = ( {item} ) => {
       )
   }
 }
-const styles = StyleSheet.create ({
-  header: {
-    fontSize: 30,
-    textAlign: 'center',
-    marginTop: 25,
-    marginLeft: 25,
-    marginRight: 25,
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 18,
-    textAlign: 'center',
-    margin: 5
-  },
-  descript: {
-    fontSize: 20,
-    margin: 8
-  },
-  flexhalf: {
-    flex: 0.5,
-  }
-});

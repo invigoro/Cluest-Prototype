@@ -8,6 +8,7 @@ import {
     Button,
   } from "react-native";
   import {List, ListItem} from 'react-native-elements';
+  import styles from './styles';
 import firebase from './fbase';
 import NavigationService from './NavigationService';
 import DraggableFlatList from 'react-native-draggable-flatlist';
@@ -68,8 +69,8 @@ export default class CreateHunt2 extends Component {
           onMoveEnd={({ data }) => this.setState({ data })}
           style={{flex: 6}}
         />
-        <TouchableOpacity style={{flex:1}} onPress={() => handleSubmit(this.state.data)}>
-          <Text>Save Order -></Text>
+        <TouchableOpacity style={[styles.opacity]} onPress={() => handleSubmit(this.state.data)}>
+          <Text style={styles.submit}>Save Order</Text>
         </TouchableOpacity>
 
       </View>

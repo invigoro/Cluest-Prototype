@@ -6,6 +6,7 @@ import {AppRegistry, FlatList,
     Alert,
     TouchableOpacity
   } from "react-native";
+  import styles from './styles';
   import {List, ListItem} from 'react-native-elements';
   import { withNavigation } from 'react-navigation';
   import NavigationService from './NavigationService';
@@ -13,59 +14,7 @@ import {AppRegistry, FlatList,
 
 var database = firebase.database();
 
-/*function handleSubmit(hunts, user, friend){
-  //console.log(hunts);
-    if(hunts.length < 1)
-    {
-      Alert.alert("Error", "Please select at least one hunt.");
-    }
-    else{
-      var j = 0;
-      while(j < hunts.length){
-      //console.log(hunts[j]["id"]);
-      database.ref('received/' + friend.token + '/' + hunts[j].id).once("value", snapshot => {
-        if (!snapshot.exists()){
-      console.log(hunts[j]);
-      console.log(j);
-      /*if(hunts.length == 1){
-      j--;}
-      var z = j - 1;
 
-     database.ref('received/' + friend.token + '/' + this.hunts[z].id).set({
-        author: user.displayName,
-        authorid: user.uid,
-        title: this.hunts[z].title,
-        descript: this.hunts[z].descript,
-        photo: user.photoURL,
-        progress: -1,
-        end: this.hunts[z].end
-    });
-
-    var i = 0;
-    while(i < 1000) {
-      try{
-        database.ref("received/" + friend.token + "/" + this.hunts[z]["id"] + "/" + i).set({
-          id: this.hunts[z][i].id,
-          descript: this.hunts[z][i].descript,
-          latitude: this.hunts[z][i].latitude,
-          longitude: this.hunts[z][i].longitude,
-          name: this.hunts[z][i].name
-      })
-      }
-      catch {break;}
-      i++;
-    }}
-  })
-  j++;
-  }
-  Alert.alert("Success", "Treasure hunts sent to " + friend.name + "!");
-    
-    //const hunt = this.state.hunts.filter(item => item.isSelect);
-    //console.log(hunt);
-    
-    NavigationService.resetToHome();
-  }
-}*/
 function handleSubmit(hunts, user, friend){
   //console.log(hunts);
       //console.log(hunts[j]["id"]);
@@ -197,26 +146,3 @@ export default class SendHunt1 extends Component {
         )
     }
   }
-  const styles = StyleSheet.create({
-    list: {
-        backgroundColor: "white",
-      },
-      selected: {backgroundColor: "lightgray"},
-      header: {
-        fontSize: 30,
-        textAlign: 'center',
-        marginTop: 25,
-        marginLeft: 25,
-        marginRight: 25,
-        marginBottom: 5,
-      },
-      subtitle: {
-        fontSize: 18,
-        textAlign: 'center',
-        margin: 5
-      },
-      descript: {
-        fontSize: 20,
-        margin: 8
-      }
-  });

@@ -7,6 +7,7 @@ import {AppRegistry, FlatList,
     TouchableOpacity
   } from "react-native";
   import {List, ListItem} from 'react-native-elements';
+  import styles from './styles';
   import { withNavigation } from 'react-navigation';
   import NavigationService from './NavigationService';
   import firebase from './fbase';
@@ -100,16 +101,10 @@ export default class CreateHunt1 extends Component {
                     keyExtractor={item => item.id}
                     extraData={this.state}
                     />
-                <TouchableOpacity onPress={() => handleSubmit(itemNumber)}>
-                    <Text>Make a Treasure Hunt!</Text>
+                <TouchableOpacity style={[styles.opacity]} onPress={() => handleSubmit(itemNumber)}>
+                    <Text style={styles.submit}>Make a Treasure Hunt!</Text>
                 </TouchableOpacity>
             </View>
         )
     }
   }
-  const styles = StyleSheet.create({
-    list: {
-        backgroundColor: "white",
-      },
-      selected: {backgroundColor: "lightgray"},
-  });

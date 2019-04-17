@@ -9,11 +9,6 @@ import {
 import { StackNavigator, createAppContainer, createStackNavigator, createBottomTabNavigator, StackActions} from 'react-navigation'; // Version can be specified in package.json
 ///import {styles} from './StyleSheet';
 
-import Amplify from 'aws-amplify';
-import aws_exports from './aws-exports';
-import { withAuthenticator } from 'aws-amplify-react-native';
-import {actions} from './storeCommands';
-import {Provider, connect} from 'react-redux';
 import HomeScreen from './HomeScreen';
 import MyActiveGamesScreen from './MyActiveGamesScreen';
 import MyLocationsScreen from './MyLocationsScreen';
@@ -69,7 +64,13 @@ const RootStack = createStackNavigator(
     Settings: SettingsScreen,
     Stats: MyStatsScreen,
     SavedLocation: SavedLocation,
-    Login: LogIn,
+    Login: {
+      screen: LogIn,
+      navigationOptions: {
+        title: "Log In",
+        headerLeft: null,
+      },
+    },
     Loading: LoadingScreen,
     CreateHunt1: CreateHunt1,
     CreateHunt2: CreateHunt2,

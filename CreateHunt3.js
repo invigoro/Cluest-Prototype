@@ -8,6 +8,7 @@ import {
     Button,
     TextInput,
   } from "react-native";
+  import styles from './styles';
   import firebase from './fbase';
   import NavigationService from './NavigationService';
 
@@ -77,30 +78,11 @@ export default class CreateHunt3 extends Component {
               style={styles.descript} 
               onChangeText={(descript) => this.setState({descript})}
               placeholder = "Enter a description here"/>
-            <TouchableOpacity onPress={() => handleSubmit(this.state)}>
-                <Text>Create my hunt!</Text>
+            <TouchableOpacity style={styles.opacity} onPress={() => handleSubmit(this.state)}>
+                <Text style={styles.submit}>Create my hunt!</Text>
             </TouchableOpacity>
             </View>
             
         )
     }
 }
-const styles = StyleSheet.create ({
-    header: {
-      fontSize: 30,
-      textAlign: 'center',
-      marginTop: 25,
-      marginLeft: 25,
-      marginRight: 25,
-      marginBottom: 5,
-    },
-    subtitle: {
-      fontSize: 18,
-      textAlign: 'center',
-      margin: 5
-    },
-    descript: {
-      fontSize: 20,
-      margin: 8
-    }
-  });

@@ -8,6 +8,8 @@ import {
     TouchableOpacity
   } from "react-native";
 import firebase from './fbase';
+
+import styles from './styles';
 //import {styles} from './StyleSheet';
 import {Facebook} from 'expo';
 
@@ -92,53 +94,6 @@ class HomeScreen extends Component {
     }
   }
 
-  const styles = StyleSheet.create({
-    fourRows: {
-      flex: 0.25, 
-      flexDirection: 'row',
-      alignItems: 'center', 
-      justifyContent: 'space-around'
-    },
-    squareish: {
-      padding: 15,
-      textAlign: 'center',
-      borderRadius: 35,
-      width: '32%',
-      backgroundColor: '#e6ffff',
-      height: '64%',
-    },
-    welcome: {
-      fontSize: 35,
-      textAlign: "justify",
-      margin: 10,
-      fontWeight: '600',
-      textShadowOffset: {width: 50, height: 50},
-      textShadowColor: 'black',
-      letterSpacing: 25,
-      textAlignVertical: 'bottom'
-    },
-    squareText: {
-      textAlign: 'center',
-      flex: 1,
-      textAlignVertical: 'center',
-      fontWeight: '500',
-      color: 'black',
-      fontSize: 16
-    },
-    bottomBar: {
-      backgroundColor: 'tan'
-    },
-    bottomButton: {
-      width: '33%',
-      height: '100%',
-    },
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#F5FCFF',
-    },
-  
-  });
+
  
   export default HomeScreen;
