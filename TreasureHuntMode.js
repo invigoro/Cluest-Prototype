@@ -72,7 +72,7 @@ export default class TreasureHuntMode extends Component {
           //console.log(loc[key].id)
       }
       hunts = Object.values(h);
-      var activeHunts = hunts.filter(item => item.progress != item.end && item.progress >= 0);
+      var activeHunts = hunts.filter(item => item.progress <= item.end && item.progress >= 0);
       this.setState({activeHunts});
       //console.log(hunts);
 
@@ -120,7 +120,7 @@ export default class TreasureHuntMode extends Component {
       };
     
     checkLocations = () => {
-      const tol = 20
+      const tol = 40;
       //console.log(this.state);
       var hunts = this.state.activeHunts;
       console.log(hunts)
