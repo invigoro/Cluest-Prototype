@@ -4,12 +4,14 @@ import {AppRegistry, FlatList,
     Text,
     View,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
+    TouchableWithoutFeedback,
   } from "react-native";
   import {List, ListItem} from 'react-native-elements';
   import { withNavigation } from 'react-navigation';
   import NavigationService from './NavigationService';
   import firebase from './fbase';
+  import styles from './styles';
 
 var database = firebase.database();
   
@@ -73,11 +75,12 @@ class MyLocationsScreen extends Component {
   }
 renderRow ( {item} ) {
     return (
+        <TouchableWithoutFeedback>
         <ListItem
         title={item.name}
         subtitle={item.latitude + ", " + item.longitude}
         onPress={() => NavigationService.navigate('SavedLocation', { id: item.id, name: item.name, descript: item.descript, latitude: item.latitude, longitude: item.longitude })}
-        />
+        /></TouchableWithoutFeedback>
     )
 }
 render ()
@@ -90,7 +93,7 @@ render ()
             <Text>Active Games Page</Text>
         </View>*/
         <View>
-            <Text style={{fontSize: 30, textAlign: 'center'}}>
+            <Text style={styles.header}>
                 My Locations
             </Text>
             <List>
@@ -98,6 +101,7 @@ render ()
                     data={this.state.locations}
                     renderItem={this.renderRow}
                     keyExtractor={item => item.name}
+                    style={{marginBottom: 150}}
                 />
             </List>
         </View>

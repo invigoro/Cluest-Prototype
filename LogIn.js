@@ -10,8 +10,11 @@ import {
     View,
     Alert,
     TouchableOpacity,
-    Button
+    Button,
+    Image,
+    ImageBackground,
   } from "react-native";
+  import styles from './styles';
 
   var newid = null;
   var fuser = null;
@@ -113,12 +116,29 @@ import {
   }
 
   export default class LogIn extends Component {
+    state = {
+      loading: true
+    }
+    componentDidMount(){
+      this.setState({loading: false})
+    }
     render ()
     {
+      const loading = this.state.loading;
       return (
-          <View>
-              <Button title="Log in with Facebook" onPress={() => logIn()}></Button>
-          </View>
+        <ImageBackground
+        source={require('./assets/splashnew.png')}
+        imageStyle={{resizeMode: 'contain'}}
+        style={{flex: 1, backgroundColor: '#B8F7FF'}}
+      >
+          {
+            loading == true ? 
+            <Text style={styles.header}>Loading...</Text> : 
+            <View style={{padding: 30, flex: .70, flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'stretch'}}>
+            <Button title="Log in with Facebook" onPress={() => logIn()}></Button>
+            </View>
+          }
+          </ImageBackground>
       );
     }
   }

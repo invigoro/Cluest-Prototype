@@ -69,7 +69,7 @@ renderRow ( {item} ) {
     return (
       
           <View>
-              <Text style={{fontSize: 30, textAlign: 'center'}}>
+              <Text style={styles.header}>
                 My Friends
             </Text>
             <List>

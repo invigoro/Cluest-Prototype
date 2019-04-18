@@ -63,7 +63,7 @@ export default class CreateHunt3 extends Component {
     }
     render() {
         return(
-            <View>
+            <View style={styles.forms}>
             <Text style={styles.header}>Enter some info about your hunt</Text>
             <TextInput
               style={styles.header} 

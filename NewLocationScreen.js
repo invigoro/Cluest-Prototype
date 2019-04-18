@@ -71,7 +71,7 @@ export default class NewLocationScreen extends Component {
   {
 
       return (
-          <View>
+          <View style={styles.forms}>
               <TextInput
               style={styles.header} onChangeText={(title) => this.setState({title})}
               //value={this.state.title}

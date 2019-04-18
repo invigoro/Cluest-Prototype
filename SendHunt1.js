@@ -132,7 +132,7 @@ export default class SendHunt1 extends Component {
         //const itemNumber = this.state.hunts.filter(item => item.isSelect);
         return (
             <View>
-                <Text style={styles.header}>Choose a hunt</Text>
+                <Text style={[styles.header]}>Choose a hunt</Text>
                 <FlatList
                     data={this.state.hunts}
                     renderItem={this.renderItem}
@@ -140,7 +140,7 @@ export default class SendHunt1 extends Component {
                     extraData={this.state}
                     />
                 <TouchableOpacity onPress={() => handleSubmit(itemNumber, this.state.user, this.state.friend)}>
-                    <Text style={styles.header}>Send to {this.state.friend.name}</Text>
+                    <Text style={[styles.descript, {textAlign: center}]}>Select a hunt to send to {this.state.friend.name}</Text>
                 </TouchableOpacity>
             </View>
         )

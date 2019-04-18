@@ -11,19 +11,20 @@ import NavigationService from './NavigationService';
 var database = firebase.database();
 
 function handleSubmit(info) {
-    console.log(info);
-    console.log(info.latitude);
+    //console.log(info);
+    //console.log(info.latitude);
     database.ref('locations/' + info.user.uid + "/" + info.id).set({
       descript: info.descript,
       latitude: info.latitude,
       longitude: info.longitude,
-      name: info.title
+      name: info.name
     });
     NavigationService.goBack();
   }
 export default class SavedLocation extends Component{
     state = {
     user: firebase.User,
+    loading: true
     }
     componentDidMount() {
         const {navigation } = this.props;
@@ -38,24 +39,30 @@ export default class SavedLocation extends Component{
         this.setState({longitude});
         this.setState({latitude});
         this.setState({descript});});
+        this.setState({loading: false});
       }
     render()
     {
         const descript = this.props.navigation.getParam('descript', 'Enter a description here!');
+        const loading = this.state.loading;
         return (
             <View>
+              { loading == true ? 
+              <Text>Loading location info...</Text> :
+                <View style={styles.forms}>
                 <TextInput
-                style={styles.header} onChangeText={(title) => this.setState({title})}
-                //value={this.state.title}
-                placeholder={this.state.name}
+                style={styles.header} onChangeText={(name) => this.setState({name})}
+                value={this.state.name}
+                //placeholder={this.state.name}
                 />
                 <Text style={styles.subtitle}>{this.state.latitude}, {this.state.longitude}</Text>
                 <TextInput
                 multiline = {true}
                 numberOfLines = {4}
                 style={styles.descript} onChangeText={(descript) => this.setState({descript})}
-                placeholder = {descript}/>
-                <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
+                value = {this.state.descript}/>
+                <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity></View>
+              }
             </View>
         )
     }

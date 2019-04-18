@@ -36,12 +36,12 @@ export default class CreateHunt2 extends Component {
 
     firebase.auth().onAuthStateChanged(user => {this.setState({user}); 
     this.setState({data});
-    //console.log(this.state);
+    console.log(this.state);
     });
   }
  
   renderItem = ({ item, index, move, moveEnd, isActive }) => {
-    let num = index + 1;
+    let num = String(index + 1);
     return (
       <ListItem
         title={item.name}
@@ -59,8 +59,8 @@ export default class CreateHunt2 extends Component {
   render() {
     //console.log(this.state.data);
     return (
-      <View style={{ flex: 1 }}>
-      <Text style={{fontSize: 30, textAlign: 'center', flex: 0.5}}>Re-order to create hunt</Text>
+      <View style={{flex: 1}}>
+      <Text style={[styles.header, {flex: 0.5}]}>Re-order to create hunt</Text>
         <DraggableFlatList
           data={this.state.data}
           renderItem={this.renderItem}

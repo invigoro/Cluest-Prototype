@@ -31,6 +31,7 @@ const styles = StyleSheet.create ({
       backgroundColor: 'skyblue',
       borderRadius: 20,
       padding: 10,
+      margin: 10,
     },
     fourRows: {
         flex: 0.25, 
@@ -79,6 +80,9 @@ const styles = StyleSheet.create ({
       },
       flexhalf: {
           flex: 0.5,
+      },
+      forms: {
+        padding: 10,
       }
   });
 

@@ -4,7 +4,8 @@ import {AppRegistry, FlatList,
     Text,
     View,
     Alert,
-    TouchableOpacity
+    TouchableOpacity,
+    TouchableWithoutFeedback
   } from "react-native";
   import {List, ListItem} from 'react-native-elements';
   import styles from './styles';
@@ -21,7 +22,8 @@ function handleSubmit(loc){
     }
     else{
     //const loc = this.state.locations.filter(item => item.isSelect);
-    //console.log(loc);
+    console.log(loc);
+    console.log("navigating to 2");
     NavigationService.navigate('CreateHunt2', {locations: loc});
   }
   }
@@ -94,14 +96,15 @@ export default class CreateHunt1 extends Component {
         
         return (
             <View>
-                <Text style={{fontSize: 30, textAlign: 'center'}}>Choose 2 or more Locations</Text>
+                <Text style={styles.header}>Choose 2 or more Locations</Text>
                 <FlatList
                     data={this.state.locations}
                     renderItem={this.renderItem}
                     keyExtractor={item => item.id}
                     extraData={this.state}
+                    style={{height: '65%'}}
                     />
-                <TouchableOpacity style={[styles.opacity]} onPress={() => handleSubmit(itemNumber)}>
+                <TouchableOpacity style={[styles.opacity, {marginBottom: 10}]} onPress={() => handleSubmit(itemNumber)}>
                     <Text style={styles.submit}>Make a Treasure Hunt!</Text>
                 </TouchableOpacity>
             </View>

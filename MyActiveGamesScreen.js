@@ -115,7 +115,7 @@ renderRow = ( {item} ) => {
         <View>
         <Text style={[styles.header]}>Active Games
         </Text>
-        <List style={{flex: 6}}>
+        <List >
             <FlatList
                 data={this.state.hunts}
                 renderItem={this.renderRow}
@@ -124,7 +124,7 @@ renderRow = ( {item} ) => {
         </List>
         <TouchableOpacity style={[styles.opacity]}>
           <Text style={styles.submit} onPress={() => handleSubmit(this.state.hunts.filter(item => item.progress != item.end && item.progress >= 0))}>
-            Enter TREASURE HUNT Mode >
+            Enter TREASURE HUNT Mode
           </Text>
         </TouchableOpacity>
     </View>

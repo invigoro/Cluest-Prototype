@@ -51,7 +51,7 @@ class HomeScreen extends Component {
           flexDirection: 'column',
           justifyContent: 'flex-end',
           alignItems: 'stretch',
-          backgroundColor: 'skyblue',
+          backgroundColor: '#B8F7FF',
         }}>
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
         <Image

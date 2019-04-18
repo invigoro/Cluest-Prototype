@@ -67,7 +67,6 @@ const RootStack = createStackNavigator(
     Login: {
       screen: LogIn,
       navigationOptions: {
-        title: "Log In",
         headerLeft: null,
       },
     },
@@ -80,7 +79,7 @@ const RootStack = createStackNavigator(
     ReceivedHunt: ViewReceivedHunt,
   },
   {
-    initialRouteName: 'Loading',
+    initialRouteName: 'Login',
     //headerMode: 'Screen'
   }
 );
