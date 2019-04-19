@@ -83,6 +83,16 @@ const styles = StyleSheet.create ({
       },
       forms: {
         padding: 10,
+      },
+      deleteop: {
+        marginTop: 'auto',
+        marginRight: 'auto',
+        marginLeft: 'auto'
+      },
+      deleteim: {
+        width: 40,
+        height: 40,
+        borderRadius: 15,
       }
   });
 

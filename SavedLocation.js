@@ -2,6 +2,7 @@ import {StyleSheet,
     Text,
     View,
     Alert,
+    Image,
     TouchableOpacity,
     TextInput,} from 'react-native';
 import React, { Component } from "react";
@@ -21,6 +22,12 @@ function handleSubmit(info) {
     });
     NavigationService.goBack();
   }
+
+function handleRemove(info) {
+  var path = 'locations/' + info.user.uid + '/' + info.id;
+  console.log(path);
+  NavigationService.navigate('DeleteScreen', {path: path});
+}
 export default class SavedLocation extends Component{
     state = {
     user: firebase.User,
@@ -61,7 +68,8 @@ export default class SavedLocation extends Component{
                 numberOfLines = {4}
                 style={styles.descript} onChangeText={(descript) => this.setState({descript})}
                 value = {this.state.descript}/>
-                <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity></View>
+                <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=> handleRemove(this.state)} style={styles.deleteop}><Image style={styles.deleteim} source={require('./assets/trashbutton.png')}/></TouchableOpacity></View>
               }
             </View>
         )

@@ -25,7 +25,7 @@ function handleSubmit(hunts) {
 }
 
 function handleSubmit2(hunts, id, user){
-  console.log('\nBEGIN\nid: \n-----------');
+  /*console.log('\nBEGIN\nid: \n-----------');
   console.log(id);
   console.log('\nhunts:\n----------');
   console.log(hunts);
@@ -35,7 +35,7 @@ function handleSubmit2(hunts, id, user){
   console.log(hunts[id].progress);
   console.log('\nhunt[index]:\n-----------');
   console.log(hunts[id]);
-  console.log("Title: " + hunts[id].title);
+  console.log("Title: " + hunts[id].title);*/
   if(hunts[id].progress >= 0) {
     console.log('greater than 0');
   //var filteredHunts = hunts.filter(item => item.progress != item.end && item.progress >= 0);

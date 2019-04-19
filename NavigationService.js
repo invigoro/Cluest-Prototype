@@ -35,6 +35,15 @@ function goBack() {
   );
 }
 
+function goBackTwice() {
+  _navigator.dispatch(
+    NavigationActions.back()
+  );
+  _navigator.dispatch(
+    NavigationActions.back()
+  );
+}
+
 function resetToHome() {
   _navigator.dispatch(
     StackActions.reset({ index: 0, key: null, actions: [NavigationActions.navigate({ routeName: 'Home'})]})
@@ -49,4 +58,5 @@ export default {
   reset,
   goBack,
   resetToHome,
+  goBackTwice,
 };

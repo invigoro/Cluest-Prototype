@@ -29,6 +29,7 @@ import TreasureHuntMode from './TreasureHuntMode';
 import {Google} from 'expo';
 import * as firebase from 'firebase';
 import ViewReceivedHunt from "./ViewReceivedHunt";
+import DeleteScreen from './DeleteScreen';
 
 //const provider = firebase.auth.GoogleAuthProvider();
 
@@ -77,6 +78,7 @@ const RootStack = createStackNavigator(
     SendHunt1: SendHunt1,
     TreasureHuntMode: TreasureHuntMode,
     ReceivedHunt: ViewReceivedHunt,
+    DeleteScreen: DeleteScreen,
   },
   {
     initialRouteName: 'Login',

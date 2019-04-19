@@ -140,7 +140,7 @@ export default class SendHunt1 extends Component {
                     extraData={this.state}
                     />
                 <TouchableOpacity onPress={() => handleSubmit(itemNumber, this.state.user, this.state.friend)}>
-                    <Text style={[styles.descript, {textAlign: center}]}>Select a hunt to send to {this.state.friend.name}</Text>
+                    <Text style={[styles.descript, {textAlign: 'center'}]}>Select a hunt to send to {this.state.friend.name}</Text>
                 </TouchableOpacity>
             </View>
         )

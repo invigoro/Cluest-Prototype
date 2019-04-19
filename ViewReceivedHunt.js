@@ -11,6 +11,12 @@ import firebase from './fbase';
 import NavigationService from './NavigationService';
 var database = firebase.database();
 
+function handleRemove(info) {
+    var path = 'received/' + info.user.uid + '/' + info.hunt.id;
+    console.log(path);
+    NavigationService.navigate('DeleteScreen', {path: path});
+  }
+
 export default class ViewReceivedHunt extends Component{
     state = {
     user: firebase.User,
@@ -20,6 +26,7 @@ export default class ViewReceivedHunt extends Component{
     }
     }
     componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {this.setState({user})});
         const {navigation } = this.props;
         console.log('\nNavigation: \n' + navigation);
         const hunt = navigation.getParam('hunt', 'no hunt');
@@ -40,6 +47,7 @@ export default class ViewReceivedHunt extends Component{
                 <Text style={styles.descript}>{hunt.descript}</Text>
                 <Text style={styles.descript}>Next Clue: {hunt[hunt.progress].descript}</Text>                
                 <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => NavigationService.navigateTo('TreasureHuntMode')}>Continue Hunt!</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=> handleRemove(this.state)} style={styles.deleteop}><Image style={styles.deleteim} source={require('./assets/trashbutton.png')}/></TouchableOpacity>
             </View>
         )
     }
