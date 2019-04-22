@@ -17,7 +17,7 @@ var database = firebase.database();
 function handleSubmit(hunts) {
   if (hunts == null)
   {
-    Alert.alert("No Hunts Started", "Please select at least one hunt and begin it to enter Treasure Hunt Mode.");
+    Alert.alert("No Hunts Started", "Please start at least one hunt to enter Treasure Hunt Mode.");
   }
   else {
     NavigationService.navigateTo('TreasureHuntMode');
@@ -36,18 +36,19 @@ function handleSubmit2(hunts, id, user){
   console.log('\nhunt[index]:\n-----------');
   console.log(hunts[id]);
   console.log("Title: " + hunts[id].title);*/
-  if(hunts[id].progress >= 0) {
-    console.log('greater than 0');
+  //if(hunts[id].progress >= 0) {
+  //  console.log('greater than 0');
   //var filteredHunts = hunts.filter(item => item.progress != item.end && item.progress >= 0);
     NavigationService.navigate('ReceivedHunt', {hunt: hunts[id]});
-  }
+  //}
+  /*
   else {
     hunt = hunts[id]
     database.ref('received/' + user.uid + '/' + hunt.id + '/progress').set(0);
     Alert.alert('Hunt started', 'This hunt has been started and the first clue is available at the top of the screen.');
     NavigationService.navigateTo('TreasureHuntMode');
     //handleSubmit(filteredHunts);
-  }
+  }*/
   
 }
 
