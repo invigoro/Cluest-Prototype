@@ -112,7 +112,7 @@ renderRow = ( {item} ) => {
   render ()
   {
       return (
-        <View>
+        <View style={{justifyContent: 'space-around'}}>
         <Text style={[styles.header]}>Active Games
         </Text>
         <List >
@@ -120,9 +120,10 @@ renderRow = ( {item} ) => {
                 data={this.state.hunts}
                 renderItem={this.renderRow}
                 keyExtractor={item => item.index}
+                style={{height: '65%'}}
             />
         </List>
-        <TouchableOpacity style={[styles.opacity]}>
+        <TouchableOpacity style={[styles.opacity, {marginBottom: 10}]}>
           <Text style={styles.submit} onPress={() => handleSubmit(this.state.hunts.filter(item => item.progress != item.end && item.progress >= 0))}>
             Enter TREASURE HUNT Mode
           </Text>
