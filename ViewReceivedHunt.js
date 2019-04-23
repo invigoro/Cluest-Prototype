@@ -1,12 +1,12 @@
 import {StyleSheet,
     Text,
     View,
-    List,
     FlatList,
     Alert,
     Image,
     TouchableOpacity,
     TextInput,} from 'react-native';
+import {List, ListItem} from 'react-native-elements';
 import React, { Component } from "react";
 import styles from './styles';
 import firebase from './fbase';
@@ -47,7 +47,7 @@ export default class ViewReceivedHunt extends Component{
           <ListItem
           title={item.name}
           subtitle={item.descript}
-          onPress={() => handleSubmit(item)}
+          hideChevron={true}
           />
       )
     }
@@ -67,15 +67,14 @@ export default class ViewReceivedHunt extends Component{
                 <Text style={styles.header}>{hunt.title}</Text>
                 <Text style={styles.subtitle}>{hunt.author}</Text>
                 <Text style={styles.descript}>{hunt.descript}</Text>
-                <Text style={styles.descript}>Next Clue: {hunt.progress >=0 ? hunt[hunt.progress].descript : 'Start this hunt to find out!'}</Text>                
+                <Text style={styles.descript}>Next Clue: {hunt.progress >=0 ? (hunt[hunt.progress].descript).toString() : 'Start this hunt to find out!'}</Text>                
                 <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>{ hunt.progress >= 0 ? 'Continue Hunt!' : 'Begin Hunt!'}</Text></TouchableOpacity>
-                { hunt.progress > 0 ? <View><Text style={styles.subtitle}>Past Clues</Text>
-                <List>
+                { hunt.progress > 0 ? <View style={{marginBottom: 15}}><Text style={[styles.header]}>Past Clues</Text>
+                
                   <FlatList
                     data={pastClues}
                     renderItem={this.renderRow}
-                  />
-                </List></View> 
+                  /></View> 
                 : null}
                 <TouchableOpacity onPress={()=> handleRemove(this.state)} style={styles.deleteop}><Image style={styles.deleteim} source={require('./assets/trashbutton.png')}/></TouchableOpacity>
             </View>
