@@ -34,11 +34,9 @@ import {
     var info = null;
     if (user != null) {
       
-      firebase.database().ref('users/' + user.uid).set({
-        fbid: fid,
-        picture: user.photoURL,
-        displayName: user.displayName
-      });
+      firebase.database().ref('users/' + user.uid + '/fbid').set(fid);
+      firebase.database().ref('users/' + user.uid + '/picture').set(user.photoURL);
+      firebase.database().ref('users/' + user.uid + '/displayName').set(user.displayName);
       //get friend info
       //console.log(fiends)
       //console.log(user)

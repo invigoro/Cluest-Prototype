@@ -11,14 +11,16 @@ import {AppRegistry, FlatList,
   import { withNavigation } from 'react-navigation';
   import NavigationService from './NavigationService';
   import firebase from './fbase';
-  import { Constants, MapView, Location, Permissions } from 'expo';
+  import Expo, { Constants, MapView, Location, Permissions, Pedometer } from 'expo';
 
   function toRadians (angle) {
     return angle * (Math.PI / 180);
   }
   
 
+
 var database = firebase.database();
+
 
 export default class TreasureHuntMode extends Component {
     state = {
@@ -29,19 +31,54 @@ export default class TreasureHuntMode extends Component {
         longitude: "x",
         mapRegion: null,
         hasLocationPermissions: false,
-        locationResult: null
+        locationResult: null,
+        isPedometerAvailable: "checking",
+        pastStepCount: 0,
+        currentStepCount: 0
     }
     componentDidMount() {
         this._getLocationAsync();
+        this._subscribe();
         //const { navigation } = this.props;
         //console.log(navigation);
         //var activeHunts = navigation.getParam('data', 'no data');
         //console.log(activeHunts);
         //this.setState({activeHunts});
         //this.setOpenClues(activeHunts);
-        firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getHunts(user); 
+        firebase.auth().onAuthStateChanged(user => {this.setState({user}); this.getHunts(user); this.getPastStepCount(user);
         });
     }
+    componentWillUnmount() {
+      this._unsubscribe();
+    }
+    _subscribe = () => {
+      this._subscription = Pedometer.watchStepCount(result => {
+        this.setState({
+          currentStepCount: result.steps
+        });
+      });
+  
+      Pedometer.isAvailableAsync().then(
+        result => {
+          this.setState({
+            isPedometerAvailable: String(result)
+          });
+        },
+        error => {
+          this.setState({
+            isPedometerAvailable: "Could not get isPedometerAvailable: " + error
+          });
+        }
+      );
+  
+    };
+
+    _unsubscribe = () => {
+      try{
+      this._subscription && this._subscription.remove();
+      this._subscription = null;}
+      catch{};
+    };
 
     setOpenClues = (hunts) => {
         //console.log(hunts);
@@ -53,6 +90,12 @@ export default class TreasureHuntMode extends Component {
             }
         }
         this.setState({openClues});
+    }
+    getPastStepCount(user) {
+      database.ref('users/' + user.uid + '/').once('value', (snapshot) => {
+        var steps = snapshot.val().steps;
+        this.setState({pastStepCount: steps});
+      });
     }
 
     getHunts(user) {
@@ -167,6 +210,7 @@ export default class TreasureHuntMode extends Component {
     _handleUserLocationChange = location => {
         this.setState({mapRegion: { latitude: location.nativeEvent.coordinate.latitude, longitude: location.nativeEvent.coordinate.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }});
         this.checkLocations();
+        database.ref('users/' + this.state.user.uid + '/steps').set(this.state.pastStepCount + this.state.currentStepCount);
     }
     renderRow ( {item} ) {
       var progress = item.progress;
@@ -189,6 +233,8 @@ export default class TreasureHuntMode extends Component {
     }
 
     render () {
+      console.log("Past steps: " + this.state.pastStepCount);
+      console.log("Current steps: " + this.state.currentStepCount);
         return (
             <View style={styles.container}>
             <View style={{height: 100}}>
