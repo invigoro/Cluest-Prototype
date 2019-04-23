@@ -56,7 +56,7 @@ function handleSubmit(hunts, user, friend){
       i++;
     }}
   })
-  Alert.alert("Success", "Treasure hunts sent to " + friend.name + "!");
+  Alert.alert("Success", "Treasure hunt sent to " + friend.name + "!");
     
     //const hunt = this.state.hunts.filter(item => item.isSelect);
     //console.log(hunt);

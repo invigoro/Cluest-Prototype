@@ -11,7 +11,7 @@ import {AppRegistry, FlatList,
   import { withNavigation } from 'react-navigation';
   import NavigationService from './NavigationService';
   import firebase from './fbase';
-  import Expo, { Constants, MapView, Location, Permissions, Pedometer } from 'expo';
+  import { Constants, MapView, Location, Permissions, Pedometer } from 'expo';
 
   function toRadians (angle) {
     return angle * (Math.PI / 180);
@@ -49,7 +49,7 @@ export default class TreasureHuntMode extends Component {
         });
     }
     componentWillUnmount() {
-      this._unsubscribe();
+      //this._unsubscribe();
     }
     _subscribe = () => {
       this._subscription = Pedometer.watchStepCount(result => {
