@@ -1,28 +1,31 @@
+//GETS CURRENT USER COORDINATES TO CREATE CLUE
+
 import React, { Component } from "react";
 import {
-    StyleSheet,
-    Text,
-    View,
-    Alert,
-    TouchableOpacity,
-    TextInput,
-  } from "react-native";
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 
-  import styles from './styles';
-  import firebase from './fbase';
-  import NavigationService from './NavigationService';
-  var database = firebase.database();
+import styles from './styles';
+import firebase from './fbase';
+import NavigationService from './NavigationService';
+var database = firebase.database();
 
-  function handleSubmit(info) {
-    database.ref('locations/' + info.user.uid).push({
-      descript: info.descript,
-      latitude: info.latitude,
-      longitude: info.longitude,
-      name: info.title
-    });
-    Alert.alert('Location Saved', 'Access this location in the "Locations" section.');
-    NavigationService.goBack();
-  }
+//take saved info and push it as new location to fbase
+function handleSubmit(info) {
+  database.ref('locations/' + info.user.uid).push({
+    descript: info.descript,
+    latitude: info.latitude,
+    longitude: info.longitude,
+    name: info.title
+  });
+  Alert.alert('Location Saved', 'Access this location in the "Locations" section.');
+  NavigationService.goBack();
+}
 
 export default class NewLocationScreen extends Component {
   state = {
@@ -35,12 +38,10 @@ export default class NewLocationScreen extends Component {
   };
 
   getLocation = () => {
-    if(this.state.latitude == "x" || this.state.longitude == "x")
-    {
+    if (this.state.latitude == "x" || this.state.longitude == "x") {
       return "Getting coordinates..."
     }
-    else
-    {
+    else {
       return (this.state.latitude) + ", " + (this.state.longitude);
     }
   };
@@ -59,33 +60,31 @@ export default class NewLocationScreen extends Component {
     );
   };
 
-  componentWillMount(){
+  componentWillMount() {
     this.findCoordinates();
   }
   componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {this.setState({user})});
+    firebase.auth().onAuthStateChanged(user => { this.setState({ user }) });
   }
 
-  
-  render ()
-  {
 
-      return (
-          <View style={styles.forms}>
-              <TextInput
-              style={styles.header} onChangeText={(title) => this.setState({title})}
-              //value={this.state.title}
-              placeholder="New Location"
-              />
-              <Text style={styles.subtitle}>{this.getLocation()}</Text>
-              <TextInput
-              multiline = {true}
-              numberOfLines = {4}
-              style={styles.descript} onChangeText={(descript) => this.setState({descript})}
-              placeholder = "Write a clue to help your friends find this place!"/>
-              <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
-          </View>
-      )
+  render() {
+
+    return (
+      <View style={styles.forms}>
+        <TextInput
+          style={styles.header} onChangeText={(title) => this.setState({ title })}
+          placeholder="New Location"
+        />
+        <Text style={styles.subtitle}>{this.getLocation()}</Text>
+        <TextInput
+          multiline={true}
+          numberOfLines={4}
+          style={styles.descript} onChangeText={(descript) => this.setState({ descript })}
+          placeholder="Write a clue to help your friends find this place!" />
+        <TouchableOpacity style={styles.opacity}><Text style={styles.submit} onPress={() => handleSubmit(this.state)}>Save Location</Text></TouchableOpacity>
+      </View>
+    )
   }
 }
 

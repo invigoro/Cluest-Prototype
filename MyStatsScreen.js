@@ -1,3 +1,6 @@
+//STATS PAGE WILL CONTAIN PERFORMANCE STATISTICS OF EACH USER
+
+//IMPORTS
 import React, { Component } from "react";
 import {AppRegistry, FlatList,
     StyleSheet,
@@ -12,7 +15,9 @@ import {AppRegistry, FlatList,
   import NavigationService from './NavigationService';
   import firebase from './fbase';
 
+//STATIC GLOBAL VARIABLES  
 var database = firebase.database();
+
 
 export default class MyStatsScreen extends Component {
   state = {

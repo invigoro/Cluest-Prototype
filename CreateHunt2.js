@@ -1,3 +1,5 @@
+//RE-ORDER LOCATIONS TO CREATE HUNT
+
 import React, { Component } from "react";
 import {
     StyleSheet, FlatList,
@@ -16,8 +18,6 @@ import DraggableFlatList from 'react-native-draggable-flatlist';
 var database = firebase.database();
 
 function handleSubmit(loc){
-  //const loc = this.state.locations.filter(item => item.isSelect);
-  //console.log(loc);
   NavigationService.navigate('CreateHunt3', {data: loc});
 }
 
@@ -30,9 +30,7 @@ export default class CreateHunt2 extends Component {
   componentDidMount() {
     const { navigation } = this.props;
     var locations = navigation.getParam('locations', 'no locations');
-    //console.log(locations);
     const data = Object.values(locations);
-    //console.log(data);
 
     firebase.auth().onAuthStateChanged(user => {this.setState({user}); 
     this.setState({data});
@@ -57,7 +55,6 @@ export default class CreateHunt2 extends Component {
   }
  
   render() {
-    //console.log(this.state.data);
     return (
       <View style={{flex: 1}}>
       <Text style={[styles.header, {flex: 0.5}]}>Re-order to create hunt</Text>

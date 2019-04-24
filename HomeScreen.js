@@ -1,3 +1,9 @@
+//LANDING PAGE FOR HOME SCREEN
+//CONTAINS LINKS TO ALL OTHER SCREENS
+//REQUIRES LOGIN INFORMATION
+//USES NAVIGATION CREATED IN App.js
+
+//IMPORTS
 import React, { Component } from "react";
 import {
     StyleSheet,
@@ -8,43 +14,18 @@ import {
     TouchableOpacity
   } from "react-native";
 import firebase from './fbase';
-
 import styles from './styles';
-//import {styles} from './StyleSheet';
-import {Facebook} from 'expo';
-
-function storeHighScore(user, score) {
-  if (user != null) {
-    firebase.database().ref('users/' + user.uid).set({
-      highscore: score
-    });
-  }
-}
-
 
 class HomeScreen extends Component {
-    //state = App.getState()
+  //get fbase user information
     state = {
         user: firebase.User
     }
-
+    //set fbase user information
     componentDidMount() {
-
       firebase.auth().onAuthStateChanged(user => this.setState({user}));
     }
-    componentWillMount() {
-      //this.state.user = firebase.user;
-      //store = this.props.screenProps
-      //const {store} = this.props.screenProps
-      //const {info} = store.getState()
-      //this.setState({info})
-    }
-    componentWillUnmount() {
-
-    }
     render() {
-      const {user} = this.state
-
       return (
         <View style={{
           flex: 1,
@@ -63,7 +44,7 @@ class HomeScreen extends Component {
             <Text style={[styles.welcome, {fontSize: 18, fontWeight: '300', letterSpacing: 0}]}>Welcome, {this.state.user.displayName}</Text>
           </View>
           <View style={styles.fourRows}> 
-            <TouchableOpacity style={styles.squareish} onPress={() => /*logIn()*/this.props.navigation.navigate('Friends')}>
+            <TouchableOpacity style={styles.squareish} onPress={() => this.props.navigation.navigate('Friends')}>
               <Text style={styles.squareText}>Friends</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.squareish} onPress={() => this.props.navigation.navigate('ActiveGames', this.props)}>
@@ -85,15 +66,12 @@ class HomeScreen extends Component {
             <TouchableOpacity style={styles.bottomButton} onPress={() => this.props.navigation.navigate('NewLocation')}>
               <Text style={styles.squareText}>New Location</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.bottomButton} onPress={() => /*storeHighScore(this.state.user, 600)*/this.props.navigation.navigate('Settings')}>
+            <TouchableOpacity style={styles.bottomButton} onPress={() => this.props.navigation.navigate('Settings')}>
               <Text style={styles.squareText}>Options</Text>
             </TouchableOpacity>
           </View>
         </View>
       );
     }
-  }
-
-
- 
+  } 
   export default HomeScreen;
